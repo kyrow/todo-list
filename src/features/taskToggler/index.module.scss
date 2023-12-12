@@ -10,3 +10,42 @@
 		margin-top: 15px;
 	}
 }
+
+.toggleWrapper {
+	width: 150px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+
+	margin-bottom: 20px;
+
+	span {
+		margin-right: 10px;
+	}
+}
+
+.toggleContainer {
+	width: 60px;
+	height: 30px;
+	border-radius: 100px;
+	background-color: #E0E4FE;
+	padding: 2px;
+	display: flex;
+
+	span {
+		width: 26px;
+		height: 26px;
+		border-radius: 100px;
+		background-color: #B1BAFF;
+		margin: 0;
+		cursor: pointer;
+	}
+
+	.enable {
+		margin-left: auto;
+	}
+
+	.disable {
+		margin-right: auto;
+	}
+}

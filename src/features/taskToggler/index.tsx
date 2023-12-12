@@ -5,6 +5,31 @@ import { filterStatuses } from '../../shared/store/task/task-slice'
 import { RootState } from '../../shared/store/store'
 
 
+interface ISingleToggle {
+	progressStatus?: number | null
+	title: string
+	activeNumber: number
+	changeStatus: (statusNumber: number) => void
+}
+
+const SingleToggle: React.FC<ISingleToggle> = ({ progressStatus, title, activeNumber, changeStatus }) => {
+
+	const { toggleContainer, toggleWrapper, enable, disable } = styles
+
+	return (
+		<div className={toggleWrapper}>
+			<span>{title}</span>
+			<div className={toggleContainer}>
+				<span
+					className={progressStatus === activeNumber ? enable : disable}
+					onClick={() => changeStatus(activeNumber)}
+				></span>
+			</div>
+		</div>
+	)
+}
+
+
 function TaskToggler() {
 
 	const { container } = styles
@@ -28,33 +53,30 @@ function TaskToggler() {
 
 	return (
 		<div className={container}>
-			<label>
-				<input
-					type='radio'
-					onChange={() => handleCheckboxChange(0)}
-					checked={onlyCreated === 0 ?? true}
-				/>
-				Created:
-			</label>
 
-			<label>
-				<input
-					type='radio'
-					onChange={() => handleCheckboxChange(1)}
-					checked={onlyInProgress === 1 ?? true}
-				/>
-				In progress:
-			</label>
+			<SingleToggle
+				progressStatus={onlyCreated}
+				title='Created:'
+				activeNumber={0}
+				changeStatus={handleCheckboxChange}
+			/>
 
-			<label>
-				<input
-					type='radio'
-					onChange={() => handleCheckboxChange(2)}
-					checked={onlyCompleted === 2 ?? true}
-				/>
-				Done: {completedTasks
-					.filter(task => task.completed === 2).length}
-			</label>
+			<SingleToggle
+				progressStatus={onlyInProgress}
+				title='In Progress:'
+				activeNumber={1}
+				changeStatus={handleCheckboxChange}
+			/>
+
+			<SingleToggle
+				progressStatus={onlyCompleted}
+				title='Completed:'
+				activeNumber={2}
+				changeStatus={handleCheckboxChange}
+			/>
+
+			<span>Completed tasks: 	{completedTasks
+				.filter(task => task.completed === 2).length}</span>
 		</div>
 	)
 }
