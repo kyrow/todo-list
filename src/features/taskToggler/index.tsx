@@ -1,4 +1,4 @@
-import React from 'react'
+
 import styles from './index.module.scss'
 import { useDispatch, useSelector } from 'react-redux'
 import { filterStatuses } from '../../shared/store/task/task-slice'
